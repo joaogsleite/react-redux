@@ -43,6 +43,7 @@ class PostDetails extends Component {
 				<li><ActionButtom color="black" name="Upvote" action={this.up} /></li>
 				<li><ActionButtom color="black" name="Downvote" action={this.down} /></li>
 			</ol>
+			<PageTitle title="Comments" />
 			<NewComment />
 			<Comment author="Example" score={3} text="Lorem ipsum dolor sit amet consectetur adipiscing" />
 		</div>
