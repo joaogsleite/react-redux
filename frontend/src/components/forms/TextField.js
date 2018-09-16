@@ -11,7 +11,7 @@ export default class TextField extends Component {
 				{this.props.name}
 			</div>
 			<input  name={this.props.name} 
-				    value={this.props.value}
+				    value={this.props.value||''}
 					placeholder={this.props.name} 
 					onChange={this.handleChange} />
 		</div>

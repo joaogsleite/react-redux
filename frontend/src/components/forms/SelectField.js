@@ -8,7 +8,7 @@ export default class SelectField extends Component {
 	render(){
 		return <div className="Field">
 			<div className="Field-title">{this.props.name}</div>
-			<select value={this.props.value}
+			<select value={this.props.value||''}
 					name={this.props.name} 
 					onChange={this.handleChange} >
 				{this.props.options.map(o=><option value={o}>{o}</option>)}

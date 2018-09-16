@@ -1,10 +1,8 @@
 import React from 'react'
 import PostItem from './PostItem'
 
-export default function PostList(props){
+export default function PostList({posts}){
 	return <div>
-		<PostItem category="a" id="123" title="Lorem ipsum dolor" author="Conseur Adiping" comments={3} score={4} />
-		<PostItem category="a" id="123" title="Lorem ipsum dolor" author="Conseur Adiping" comments={3} score={4} />
-		<PostItem category="a" id="123" title="Lorem ipsum dolor" author="Conseur Adiping" comments={3} score={4} />
+		{posts.map((p,i)=><PostItem key={i} {...p} />)}
 	</div  >
 }
