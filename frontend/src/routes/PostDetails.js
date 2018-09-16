@@ -4,6 +4,8 @@ import {withRouter} from 'react-router-dom'
 import ActionButtom from '../components/forms/ActionButton'
 import PageTitle from '../components/layout/PageTitle'
 import PostDetail from '../components/posts/PostDetail'
+import {Comment,NewComment} from '../components/comments'
+
 class PostDetails extends Component {
 	delete = ()=>{
 		const del = window.confirm("Delete post?");
@@ -41,6 +43,8 @@ class PostDetails extends Component {
 				<li><ActionButtom color="black" name="Upvote" action={this.up} /></li>
 				<li><ActionButtom color="black" name="Downvote" action={this.down} /></li>
 			</ol>
+			<NewComment />
+			<Comment author="Example" score={3} text="Lorem ipsum dolor sit amet consectetur adipiscing" />
 		</div>
 	}
 }
