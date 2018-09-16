@@ -24,7 +24,7 @@ class PostItem extends Component {
 		this.props.downVote(this.props.id)
 	}
 	render(){
-		const {id,title,author,commentCount,voteScore} = this.props
+		const {id,timestamp,title,author,commentCount,voteScore} = this.props
 		return <div className="PostItem">
 			<h3 className="PostItem-title">
 				<Link to={`/posts/${id}`}>{title}</Link>
@@ -33,6 +33,7 @@ class PostItem extends Component {
 				<li><PostDetail name="author" value={author} /></li>
 				<li><PostDetail name="comments" value={commentCount} /></li>
 				<li><PostDetail name="score" value={voteScore} /></li>
+				<li><PostDetail name="date" value={new Date(timestamp).toUTCString()} /></li>
 			</ul>
 			<ol className="PostItem-actions">
 				<li><ActionButtom color="red" name="Delete" action={this.delete} /></li>

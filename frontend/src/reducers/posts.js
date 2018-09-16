@@ -1,5 +1,5 @@
 const initial = {
-	posts      : [],
+	posts      : {},
 	fetched    : [],
 	allFetched : false,
 	loading    : false,

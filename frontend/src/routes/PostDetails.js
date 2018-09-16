@@ -2,11 +2,11 @@ import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchPost, deletePost, upVote,downVote} from '../actions/posts'
+import {CommentsList} from '../components/comments'
 
 import ActionButtom from '../components/forms/ActionButton'
 import PageTitle from '../components/layout/PageTitle'
 import PostDetail from '../components/posts/PostDetail'
-import {Comment,NewComment} from '../components/comments'
 
 class PostDetails extends Component {
 
@@ -33,7 +33,7 @@ class PostDetails extends Component {
 		this.props.downVote(this.props.match.params.post)
 	}
 	render(){
-		const {title, body, author, voteScore, commentCount} = 
+		const {id, timestamp, title, body, author, voteScore, commentCount} = 
 			this.props.posts[this.props.match.params.post]
 		return <div>
 			<PageTitle title="Post details" />
@@ -43,6 +43,7 @@ class PostDetails extends Component {
 				<li><PostDetail name="author" value={author} /></li>
 				<li><PostDetail name="comments" value={commentCount} /></li>
 				<li><PostDetail name="score" value={voteScore} /></li>
+				<li><PostDetail name="date" value={new Date(timestamp).toUTCString()} /></li>
 			</ul>
 			<ol className="PostItem-actions">
 				<li><ActionButtom color="red" name="Delete" action={this.delete} /></li>
@@ -51,14 +52,14 @@ class PostDetails extends Component {
 				<li><ActionButtom color="black" name="Downvote" action={this.down} /></li>
 			</ol>
 			<PageTitle title="Comments" />
-			<NewComment />
-			<Comment author="Example" score={3} text="Lorem ipsum dolor sit amet consectetur adipiscing" />
+			<CommentsList post={id} />
+			
 		</div>
 	}
 }
 
 const mapState = ({posts}) => ({ 
-	posts : posts.posts
+	posts    : posts.posts,
 })
 const mapDispatch = dispatch => ({
 	deletePost : (id)=>dispatch(deletePost(id)),

@@ -1,29 +1,32 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
 import ActionButtom from '../forms/ActionButton'
 import "../posts/Posts.css"
+import {downVote,upVote,deleteComment} from '../../actions/comments'
 
-export default class Comment extends Component {
+class Comment extends Component {
 	delete = ()=>{
-		const del = window.confirm("Delete post?");
+		const del = window.confirm("Delete comment?");
 		if(del){
-			console.log("del",this.props.id)
+			this.props.deleteComment(this.props.id)
 		}
 	}
 	up = ()=>{
-
+		this.props.upVote(this.props.id)
 	}
 	down = ()=>{
-
+		this.props.downVote(this.props.id)
 	}
 	render(){
-		const {author,text,score} = this.props
+		const {author,body,voteScore,timestamp} = this.props
 		return <div className="PostItem">
 			<div className="PostItem-title">
-				{text}
+				{body}
 			</div>
 			<ul className="PostItem-details">
 				<li>Author: {author}</li>
-				<li>Score: {score}</li>
+				<li>Score: {voteScore}</li>
+				<li>Date: {new Date(timestamp).toUTCString()}</li>
 			</ul>
 			<ol className="PostItem-actions">
 				<li><ActionButtom color="red" name="Delete" action={this.delete} /></li>
@@ -33,3 +36,13 @@ export default class Comment extends Component {
 		</div>
 	}
 }
+
+const mapState = ({comments}) => ({ 
+	comments : comments.comments
+})
+const mapDispatch = dispatch => ({
+	upVote : (id)=>dispatch(upVote(id)),
+	downVote : (id)=>dispatch(downVote(id)),
+	deleteComment : (id)=>dispatch(deleteComment(id)),
+})
+export default connect(mapState,mapDispatch)(Comment)
