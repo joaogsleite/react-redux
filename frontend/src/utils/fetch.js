@@ -16,8 +16,11 @@ export function get(url){
 export function post(url,data){
 	return fetch(BASE_URL+url, {
 		method: 'POST',
-		headers: { 'Authorization': token },
-		body: new FormData(data)
+		headers: { 
+			'Authorization': token,
+			'content-type': "application/json"
+		},
+		body: JSON.stringify(data)
 	})
 	.then(res=>res.json())
 	.catch(err=>Promise.reject(err))
@@ -25,8 +28,11 @@ export function post(url,data){
 export function put(url,data){
 	return fetch(BASE_URL+url, {
 		method: 'PUT',
-		headers: { 'Authorization': token },
-		body: new FormData(data)
+		headers: { 
+			'Authorization': token,
+			'content-type': "application/json"
+		},
+		body: JSON.stringify(data)
 	})
 	.then(res=>res.json())
 	.catch(err=>Promise.reject(err))
