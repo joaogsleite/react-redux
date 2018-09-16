@@ -26,7 +26,7 @@ class PostItem extends Component {
 		const {id,title,author,commentCount,voteScore,category} = this.props
 		return <div className="PostItem">
 			<h3 className="PostItem-title">
-				<Link to={`/${category}/${id}`}>{title}</Link>
+				<Link to={`/posts/${id}`}>{title}</Link>
 			</h3>
 			<ul className="PostItem-details">
 				<li><PostDetail name="author" value={author} /></li>
