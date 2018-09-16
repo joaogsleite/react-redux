@@ -33,7 +33,7 @@ class PostDetails extends Component {
 		this.props.downVote(this.props.match.params.post)
 	}
 	render(){
-		const {id, timestamp, title, body, author, voteScore, commentCount} = 
+		const {id, timestamp, title, body, author, voteScore, category, commentCount} = 
 			this.props.posts[this.props.match.params.post]
 		return <div>
 			<PageTitle title="Post details" />
@@ -42,6 +42,7 @@ class PostDetails extends Component {
 			<ul className="PostItem-details">
 				<li><PostDetail name="author" value={author} /></li>
 				<li><PostDetail name="comments" value={commentCount} /></li>
+				<li><PostDetail name="category" value={category} /></li>
 				<li><PostDetail name="score" value={voteScore} /></li>
 				<li><PostDetail name="date" value={new Date(timestamp).toUTCString()} /></li>
 			</ul>

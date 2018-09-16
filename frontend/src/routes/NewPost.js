@@ -9,10 +9,12 @@ class NewPost extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			author : props.author
+			author   : props.author,
+			category : props.categories[0]
 		}
 	}
 	onChange = (name,value)=>{
+		console.log(name,value)
 		this.setState({[name]:value})
 	}
 	save = ()=>{
@@ -32,7 +34,7 @@ class NewPost extends Component {
 }
 
 const mapState = ({categories,login}) => ({ 
-	categories : categories.categories,
+	categories : categories.categories.map(c=>c.name),
 	author     : login.username
 })
 const mapDispatch = dispatch => ({
