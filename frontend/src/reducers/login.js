@@ -1,5 +1,3 @@
-import uuid from '../utils/uuid'
-
 let savedToken;
 
 const initial = {
@@ -13,11 +11,12 @@ export { savedToken as token }
 export default function reducer(state = initial, {type,payload}) {
 	
 	switch(type){
+		case "RESTORE_SESSION":
 		case "LOGIN":
-			savedToken = uuid()
+			savedToken = payload.token
 			return {
-				usermame : payload,
-				token    : savedToken,
+				usermame : payload.username,
+				token    : payload.token,
 				loggedIn : true
 			}
 
