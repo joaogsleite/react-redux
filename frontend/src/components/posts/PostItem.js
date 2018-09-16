@@ -1,6 +1,10 @@
 import React,{Component} from 'react'
+import {withRouter,Link} from 'react-router-dom'
+import ActionButtom from '../forms/ActionButton'
+import PostDetail from './PostDetail'
+import "./Posts.css"
 
-export default class PostItem extends Component {
+class PostItem extends Component {
 	delete = ()=>{
 		const del = window.confirm('Delete post?')
 		if(del){
@@ -8,32 +12,35 @@ export default class PostItem extends Component {
 		}
 	}
 	edit = ()=>{
-		const {category,id} = this.props
-		console.log('edit',category,id)
+		const category = this.props.match.params.category
+		const post = this.props.id
+		this.props.history.push('/'+category+'/'+post+'/edit')
 	}
 	upvote = ()=>{
-		console.log('up')
+
 	}
 	downvote = ()=>{
-		console.log('down')
+
 	}
 	render(){
-		const {title,author,comments,score} = this.props
-		return <div>
-			<h3>
-				{title}
+		const {id,title,author,comments,score,category} = this.props
+		return <div className="PostItem">
+			<h3 className="PostItem-title">
+				<Link to={`/${category}/${id}`}>{title}</Link>
 			</h3>
-			<ul>
-				<li>Author: {author}</li>
-				<li>Comments: {comments}</li>
-				<li>Score: {score}</li>
+			<ul className="PostItem-details">
+				<li><PostDetail name="author" value={author} /></li>
+				<li><PostDetail name="comments" value={comments} /></li>
+				<li><PostDetail name="score" value={score} /></li>
 			</ul>
-			<ol>
-				<li onClick={this.delete}>Delete</li>
-				<li onClick={this.edit}>Edit</li>
-				<li onClick={this.upvote}>Upvote</li>
-				<li onClick={this.downvote}>Downvote</li>
+			<ol className="PostItem-actions">
+				<li><ActionButtom color="red" name="Delete" action={this.delete} /></li>
+				<li><ActionButtom color="green" name="Edit" action={this.edit} /></li>
+				<li><ActionButtom color="blue" name="Upvote" action={this.upvote} /></li>
+				<li><ActionButtom color="blue" name="Downvote" action={this.downvote} /></li>
 			</ol>
 		</div>
 	}
 }
+
+export default withRouter(PostItem)
