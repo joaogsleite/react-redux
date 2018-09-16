@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import {TextField, SelectField, ActionButton} from '../components/forms'
+import {PageTitle} from '../components/layout'
 
 export default class NewPost extends Component {
 	constructor(props){
@@ -16,7 +17,7 @@ export default class NewPost extends Component {
 		const {title,body,author,category} = this.state
 		const categories = ['a','b','c']
 		return <div>
-			<h1>New post</h1>
+			<PageTitle title="New post" />
 			<TextField name="title" value={title} onChange={this.onChange} />
 			<TextField name="body" value={body} onChange={this.onChange} />
 			<TextField name="author" value={author} onChange={this.onChange} />
