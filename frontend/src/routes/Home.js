@@ -1,11 +1,31 @@
-import React from 'react'
+import React,{Component} from 'react'
+import {connect} from 'react-redux'
 
-import {PageTitle} from '../components/layout'
+import {PageTitle,Notification} from '../components/layout'
 import PostList from '../components/posts/PostList'
+import {fetchPosts} from '../actions/posts'
 
-export default function Home(props){
-	return <div>
-		<PageTitle title="Home" />
-		<PostList />
-	</div>
+class Home extends Component {
+	componentDidMount(){
+		this.props.fetchPosts()
+	}
+	render(){
+		const {error,loading,posts} = this.props
+		return <div>
+			<PageTitle title="Home" />
+			{error&&<Notification color="red" message="Error loading posts" />}
+			{loading&&<Notification color="blue" message="Loading posts..." />}
+			<PostList posts={posts} />
+		</div>
+	}
 }
+
+const mapState = ({posts}) => ({ 
+	error: posts.error,
+	loading : posts.loading,
+	posts : Object.values(posts.posts)
+})
+const mapDispatch = dispatch => ({
+	fetchPosts : (category)=>dispatch(fetchPosts(category))
+})
+export default connect(mapState,mapDispatch)(Home)

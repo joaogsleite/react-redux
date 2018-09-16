@@ -1,5 +1,5 @@
 const initial = {
-	posts      : {},
+	posts      : [],
 	fetched    : [],
 	loading    : false,
 	error      : false
@@ -44,7 +44,7 @@ export default function reducer(state = initial, {type,payload}) {
 			const posts = payload.reduce((result,item)=>{
 				result[item.id] = item
 				return result
-			})
+			},{})
 			return { 
 				posts   : {...state.posts, ...posts},
 				fetched : [...state.fetched, ...categories],
