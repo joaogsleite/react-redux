@@ -17,6 +17,7 @@ class NewComment extends Component {
 	}
 	save = ()=>{
 		this.props.postComment(this.state)
+		this.setState({body:''})
 	}
 	render(){
 		const {body} = this.state

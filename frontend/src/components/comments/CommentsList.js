@@ -11,7 +11,7 @@ class CommentsList extends Component {
 		const comments = this.props.comments.filter(c=>c.parentId===this.props.post)
 		return <div>
 			<NewComment post={this.props.post} />
-			{comments&&comments.map((c,i)=><Comment key={i} {...c} />)}
+			{comments&&comments.sort((a,b)=>b.timestamp-a.timestamp).map((c,i)=><Comment key={i} {...c} />)}
 		</div>
 	}
 }
