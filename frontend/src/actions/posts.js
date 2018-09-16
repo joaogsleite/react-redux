@@ -1,5 +1,5 @@
 import {get, post, put, del} from '../utils/fetch'
-
+import uuid from '../utils/uuid'
 
 export function fetchPosts(category){
     return {
@@ -32,6 +32,15 @@ export function editPost(id, title, body){
 	return {
 		type    : "EDIT_POST",
 		payload : put('/posts/'+id,{title,body}) 
+	}
+}
+
+export function postPost(data){
+	data.timestamp = Date.now()
+	data.id = uuid()
+	return {
+		type    : "POST_POST",
+		payload : post('/posts',data) 
 	}
 }
 

@@ -15,7 +15,7 @@ export default function reducer(state = initial, {type,payload}) {
 		case "LOGIN":
 			savedToken = payload.token
 			return {
-				usermame : payload.username,
+				username : payload.username,
 				token    : payload.token,
 				loggedIn : true
 			}

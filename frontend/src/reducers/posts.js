@@ -10,11 +10,16 @@ export default function reducer(state = initial, {type,payload,id}) {
 
 	switch(type){
 		case "DELETE_POST_PENDING":
-		case "EDIT_POST_PENDING":
 		case "DOWNVOTE_POST_PENDING":
 		case "UPVOTE_POST_PENDING":
-		case "POST_POST_PENDING":
 		case "FETCH_POST_PENDING":
+			return {
+				...state,
+				error : false,
+			}
+
+		case "EDIT_POST_PENDING":
+		case "POST_POST_PENDING":
 		case "FETCH_POSTS_PENDING":
 			return {
 				...state,

@@ -1,28 +1,41 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import {TextField, SelectField, ActionButton} from '../components/forms'
 import {PageTitle} from '../components/layout'
+import {postPost} from '../actions/posts'
 
-export default class NewPost extends Component {
+class NewPost extends Component {
 	constructor(props){
 		super(props)
-		this.state = {}
+		this.state = {
+			author : props.author
+		}
 	}
 	onChange = (name,value)=>{
 		this.setState({[name]:value})
 	}
 	save = ()=>{
-		console.log('save')
+		this.props.postPost(this.state)
+		this.props.history.push('/')
 	}
 	render(){
-		const {title,body,author,category} = this.state
-		const categories = ['a','b','c']
+		const {title,body,category} = this.state
 		return <div>
 			<PageTitle title="New post" />
 			<TextField name="title" value={title} onChange={this.onChange} />
 			<TextField name="body" value={body} onChange={this.onChange} />
-			<TextField name="author" value={author} onChange={this.onChange} />
-			<SelectField name="category" value={category} options={categories} onChange={this.onChange} />
+			<SelectField name="category" value={category} options={this.props.categories} onChange={this.onChange} />
 			<ActionButton color="green" name="Save" action={this.save} />
 		</div>
 	}
 }
+
+const mapState = ({categories,login}) => ({ 
+	categories : categories.categories,
+	author     : login.username
+})
+const mapDispatch = dispatch => ({
+	postPost : (post)=>dispatch(postPost(post))
+})
+export default withRouter(connect(mapState,mapDispatch)(NewPost))
