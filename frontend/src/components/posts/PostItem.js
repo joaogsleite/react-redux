@@ -1,29 +1,30 @@
 import React,{Component} from 'react'
 import {withRouter,Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 import ActionButtom from '../forms/ActionButton'
 import PostDetail from './PostDetail'
+import {deletePost, upVote, downVote } from '../../actions/posts'
 import "./Posts.css"
 
 class PostItem extends Component {
 	delete = ()=>{
-		const del = window.confirm('Delete post?')
+		const del = window.confirm("Delete post?");
 		if(del){
-			console.log('delete',this.props.id)
+			this.props.deletePost(this.props.id)
+			this.props.history.push("/")
 		}
 	}
 	edit = ()=>{
-		const category = this.props.match.params.category
-		const post = this.props.id
-		this.props.history.push('/posts/'+post+'/edit')
+		this.props.history.push('/posts/'+this.props.id+'/edit')
 	}
 	upvote = ()=>{
-
+		this.props.upVote(this.props.id)
 	}
 	downvote = ()=>{
-
+		this.props.downVote(this.props.id)
 	}
 	render(){
-		const {id,title,author,commentCount,voteScore,category} = this.props
+		const {id,title,author,commentCount,voteScore} = this.props
 		return <div className="PostItem">
 			<h3 className="PostItem-title">
 				<Link to={`/posts/${id}`}>{title}</Link>
@@ -43,4 +44,12 @@ class PostItem extends Component {
 	}
 }
 
-export default withRouter(PostItem)
+const mapState = ({posts}) => ({ 
+	posts : posts.posts
+})
+const mapDispatch = dispatch => ({
+	deletePost : (id)=>dispatch(deletePost(id)),
+	upVote : (id)=>dispatch(upVote(id)),
+	downVote : (id)=>dispatch(downVote(id))
+})
+export default withRouter(connect(mapState,mapDispatch)(PostItem))

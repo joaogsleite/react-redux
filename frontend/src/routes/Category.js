@@ -18,7 +18,7 @@ class Home extends Component {
 			<PageTitle title={category} />
 			{error&&<Notification color="red" message="Error loading posts" />}
 			{loading&&<Notification color="blue" message="Loading posts..." />}
-			<PostList posts={posts.filter(p=>p.category==category)} />
+			<PostList posts={posts.filter(p=>p.category===category)} />
 		</div>
 	}
 }

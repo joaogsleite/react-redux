@@ -15,6 +15,19 @@ export function fetchPost(postId){
 	}
 }
 
+export function downVote(postId){
+	return {
+		type    : "DOWNVOTE_POST",
+		payload : post('/posts/'+postId,{option:'downVote'}).then(res=>postId),
+	}
+}
+export function upVote(postId){
+	return {
+		type    : "UPVOTE_POST",
+		payload : post('/posts/'+postId,{option:'upVote'}).then(res=>postId),
+	}
+}
+
 export function editPost(id, title, body){
 	return {
 		type    : "EDIT_POST",
@@ -22,10 +35,10 @@ export function editPost(id, title, body){
 	}
 }
 
-export function deletePost(id){
+export function deletePost(postId){
 	return {
 		type    : "DELETE_POST",
-		payload : del('/posts/'+id) 
+		payload : del('/posts/'+postId).then(res=>postId)
 	}
 }
 

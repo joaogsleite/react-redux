@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {fetchPost, deletePost} from '../actions/posts'
+import {fetchPost, deletePost, upVote,downVote} from '../actions/posts'
 
 import ActionButtom from '../components/forms/ActionButton'
 import PageTitle from '../components/layout/PageTitle'
@@ -18,7 +18,7 @@ class PostDetails extends Component {
 	delete = ()=>{
 		const del = window.confirm("Delete post?");
 		if(del){
-			this.props.deletePost()
+			this.props.deletePost(this.props.match.params.post)
 			this.props.history.push("/")
 		}
 	}
@@ -27,10 +27,10 @@ class PostDetails extends Component {
 		this.props.history.push("/posts/"+post+"/edit")
 	}
 	up = ()=>{
-
+		this.props.upVote(this.props.match.params.post)
 	}
 	down = ()=>{
-
+		this.props.downVote(this.props.match.params.post)
 	}
 	render(){
 		const {title, body, author, voteScore, commentCount} = 
@@ -62,6 +62,8 @@ const mapState = ({posts}) => ({
 })
 const mapDispatch = dispatch => ({
 	deletePost : (id)=>dispatch(deletePost(id)),
-	fetchPost : (id)=>dispatch(fetchPost(id))
+	fetchPost : (id)=>dispatch(fetchPost(id)),
+	upVote : (id)=>dispatch(upVote(id)),
+	downVote : (id)=>dispatch(downVote(id))
 })
 export default withRouter(connect(mapState,mapDispatch)(PostDetails))
