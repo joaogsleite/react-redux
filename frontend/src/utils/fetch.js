@@ -5,7 +5,6 @@ import {token} from '../reducers/login'
 const BASE_URL = "http://localhost:3001"
 
 export function get(url){
-	console.log('token',token)
 	return fetch(BASE_URL+url, {
 		method: 'GET',
 		headers: { 'Authorization': token }

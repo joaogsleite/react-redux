@@ -20,7 +20,6 @@ class NavBar extends Component{
 				<NavButton key={2} float="right" link="/logout" name="Logout" />,
 				<NavButton key={3} float="right" link="/new" name="Create post" />
 			]
-			console.log(categories,'categories')
 			for(let c of categories)
 				buttons.push(<NavButton key={c.path} link={'/'+c.path} name={c.name} />)
 		}
