@@ -7,7 +7,8 @@ import {fetchPosts} from '../actions/posts'
 
 class Home extends Component {
 	componentDidMount(){
-		this.props.fetchPosts()
+		if(!this.props.allFetched)
+			this.props.fetchPosts()
 	}
 	render(){
 		const {error,loading,posts} = this.props
@@ -23,6 +24,7 @@ class Home extends Component {
 const mapState = ({posts}) => ({ 
 	error: posts.error,
 	loading : posts.loading,
+	allFetched : posts.allFetched,
 	posts : Object.values(posts.posts)
 })
 const mapDispatch = dispatch => ({

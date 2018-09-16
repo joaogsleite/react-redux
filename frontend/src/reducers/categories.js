@@ -4,9 +4,9 @@ const initial = {
 	error      : false
 }
 
-export default function reducer(state = initial, action) {
+export default function reducer(state = initial, {type,payload}) {
 	
-	switch(action.type){
+	switch(type){
 		case "FETCH_CATEGORIES_PENDING":
 			return {
 				categories : [], 
@@ -16,7 +16,7 @@ export default function reducer(state = initial, action) {
 
 		case "FETCH_CATEGORIES_FULFILLED":
 			return { 
-				categories : action.payload, 
+				categories : payload.categories, 
 				loading    : false,
 				error      : false 
 			}

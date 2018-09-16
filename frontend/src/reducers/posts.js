@@ -1,6 +1,7 @@
 const initial = {
 	posts      : [],
 	fetched    : [],
+	allFetched : false,
 	loading    : false,
 	error      : false
 }
@@ -46,13 +47,15 @@ export default function reducer(state = initial, {type,payload}) {
 				return result
 			},{})
 			return { 
-				posts   : {...state.posts, ...posts},
-				fetched : [...state.fetched, ...categories],
-				loading : false,
-				error   : false 
+				posts      : {...state.posts, ...posts},
+				fetched    : [...state.fetched, ...categories],
+				allFetched : categories.length>1||this.state.allFetched,
+				loading    : false,
+				error      : false 
 			}
 		case "FETCH_POST_FULFILLED":
 			return { 
+				...state,
 				posts   : {...state.posts, [payload.id]:payload},
 				fetched : [...state.fetched, payload.category],
 				loading : false,
@@ -60,6 +63,7 @@ export default function reducer(state = initial, {type,payload}) {
 			}
 		case "POST_POST_FULFILLED":
 			return {
+				...state,
 				posts   : {...state.posts, [payload.id]:payload},
 				fetched : [...state.fetched, payload.category],
 				error   : false,

@@ -1,28 +1,42 @@
-import React from 'react'
+import React,{Component} from 'react'
 import {connect} from 'react-redux'
+import {fetchCategories} from '../../actions/categories'
 import "./Nav.css"
 
 import NavButton from './NavButton'
 
-function NavBar({loggedIn}){
+class NavBar extends Component{
+	componentDidMount(){
+		this.props.fetchCategories()
+	}
+	render(){
+		const {loggedIn, categories} = this.props
+		
+		let buttons = []
 
-	const buttons = loggedIn?[
-		<NavButton key={1} link="/" name="Home" />,
-		<NavButton key={2} link="/category1" name="Category 1" />,
-		<NavButton key={3} link="/category2" name="Category 2" />,
-		<NavButton key={4} link="/category3" name="Category 3" />,
-		<NavButton key={5} float="right" link="/logout" name="Logout" />,
-		<NavButton key={6} float="right" link="/new" name="Create post" />
-	]:[
-		<NavButton key={0} link="/login" name="Login" />
-	]
+		if(loggedIn){
+			buttons = [
+				<NavButton key={1} link="/" name="Home" />,
+				<NavButton key={2} float="right" link="/logout" name="Logout" />,
+				<NavButton key={3} float="right" link="/new" name="Create post" />
+			]
+			console.log(categories,'categories')
+			for(let c of categories)
+				buttons.push(<NavButton key={c.path} link={'/'+c.path} name={c.name} />)
+		}
+		else buttons = [<NavButton key={0} link="/login" name="Login" />]
 
-	return <ol className="NavBar-list">
-		{buttons}
-	</ol>
+		return <ol className="NavBar-list">
+			{buttons}
+		</ol>
+	}
 }
 
-const mapState = ({login}) => ({ 
-	loggedIn : login.loggedIn 
+const mapState = ({login,categories}) => ({ 
+	loggedIn : login.loggedIn,
+	categories: categories.categories
 })
-export default connect(mapState)(NavBar)
+const mapDispatch = dispatch => ({
+	fetchCategories : ()=>dispatch(fetchCategories())
+})
+export default connect(mapState,mapDispatch)(NavBar)

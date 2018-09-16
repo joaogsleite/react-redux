@@ -8,9 +8,3 @@ export function fetchPosts(category){
 	}
 }
 
-
-export function logout(){
-    return {
-        type : "LOGOUT"
-    }
-}
