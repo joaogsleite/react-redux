@@ -1,6 +1,48 @@
-import React from 'react'
-import {PageTitle} from '../components/layout'
+import React,{Component} from 'react'
+import {withRouter} from 'react-router-dom'
 
-export default function PostDetails({match}){
-	return <div>PostDetails: {match.params.post}</div>
+import ActionButtom from '../components/forms/ActionButton'
+import PageTitle from '../components/layout/PageTitle'
+import PostDetail from '../components/posts/PostDetail'
+class PostDetails extends Component {
+	delete = ()=>{
+		const del = window.confirm("Delete post?");
+		if(del){
+			console.log("del",this.props.id)
+		}
+	}
+	edit = ()=>{
+		const category = this.props.category
+		const post = this.props.id
+		this.props.history.push("/"+category+"/"+post+"/edit")
+	}
+	up = ()=>{
+
+	}
+	down = ()=>{
+
+	}
+	render(){
+		const {title, body, author, score, comments} = {
+			title: "Example", body: "Example", author: "Name", 
+			score: 3, comments:2 }
+		return <div>
+			<PageTitle title="Post details" />
+			<h3>{title}</h3>
+			<p>{body}</p>
+			<ul className="PostItem-details">
+				<li><PostDetail name="author" value={author} /></li>
+				<li><PostDetail name="comments" value={comments} /></li>
+				<li><PostDetail name="score" value={score} /></li>
+			</ul>
+			<ol className="PostItem-actions">
+				<li><ActionButtom color="red" name="Delete" action={this.delete} /></li>
+				<li><ActionButtom color="green" name="Edit" action={this.edit} /></li>
+				<li><ActionButtom color="black" name="Upvote" action={this.up} /></li>
+				<li><ActionButtom color="black" name="Downvote" action={this.down} /></li>
+			</ol>
+		</div>
+	}
 }
+
+export default withRouter(PostDetails)
