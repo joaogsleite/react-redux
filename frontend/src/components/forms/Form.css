@@ -1,0 +1,45 @@
+
+input{
+    box-sizing : border-box;
+}
+.Button {
+	border: 0;
+	border-radius: 3px;
+	padding: 5px 15px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	user-select: none;
+	text-align: center;
+}
+.Button.red {
+	background-color: #f44336;
+}
+.Button.green {
+	background-color: #4CAF50;
+}
+.Button.blue {
+	background-color: #008CBA;
+}
+.Button.black {
+	background-color: #555555;
+}
+.Button:hover {
+	background-color: white;
+	color: black;
+	border: 1px solid #333;
+	padding: 4px 14px;
+}
+
+
+.Field {
+	margin-bottom: 20px;
+}
+.Field-title {
+	text-transform: capitalize;
+}
+.Field input, .Field select {
+	margin-top:10px;
+	width: 100%;
+	height: 30px;
+}
