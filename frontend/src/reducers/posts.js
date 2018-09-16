@@ -6,7 +6,7 @@ const initial = {
 }
 
 export default function reducer(state = initial, {type,payload}) {
-	
+
 	switch(type){
 		case "DELETE_POST_PENDING":
 		case "EDIT_POST_PENDING":
@@ -22,22 +22,20 @@ export default function reducer(state = initial, {type,payload}) {
 			}
 		
 		case "DELETE_POST_FULFILLED":
-			const posts = {...state.posts}
-			delete posts[payload.id]
+			delete state.posts[payload.id]
 			return {
 				...state,
-				posts   : [...posts],
+				posts   : [...state.posts],
 				error   : false,
 				loading : false,
 			}
 
 		case "EDIT_POST_FULFILLED":
-			const posts = {...state.posts}
-			posts[payload.id].title = payload.title
-			posts[payload.id].body  = payload.body
+			state.posts[payload.id].title = payload.title
+			state.posts[payload.id].body  = payload.body
 			return {
 				...state,
-				posts   : [...posts],
+				posts   : [...state.posts],
 				error   : false,
 				loading : false,
 			}
@@ -68,20 +66,18 @@ export default function reducer(state = initial, {type,payload}) {
 				loading : false,
 			}
 		case "DOWNVOTE_POST_FULFILLED":
-			const posts = {...state.posts}
-			posts[payload.id].voteScore-1
+			state.posts[payload.id].voteScore--;
 			return {
 				...state,
-				posts   : [...posts],
+				posts   : [...state.posts],
 				error   : false,
 				loading : false,
 			}
 		case "UPVOTE_POST_FULFILLED":
-			const posts = {...state.posts}
-			posts[payload.id].voteScore+1
+			state.posts[payload.id].voteScore++;
 			return {
 				...state,
-				posts   : [...posts],
+				posts   : [...state.posts],
 				error   : false,
 				loading : false,
 			}
