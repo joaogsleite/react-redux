@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router} from 'react-router-dom'
-import logo from '../assets/logo.svg'
+import logo from '../../assets/logo.svg'
 import './App.css'
 
-import Routes from '../routes'
+import Routes from '../../routes'
 
 class App extends Component {
 	render() {
