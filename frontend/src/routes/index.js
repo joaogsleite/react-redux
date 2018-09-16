@@ -22,8 +22,8 @@ export default function routes() {
 		<Route exact path="/login" component={Login} />
 		<PrivateRoute exact path="/logout" component={Logout} />
 		<PrivateRoute exact path="/new" component={NewPost} />
-		<PrivateRoute exact path="/:category/:post/edit" component={EditPost} />
-		<PrivateRoute exact path="/:category/:post" component={PostDetails} />
+		<PrivateRoute exact path="/posts/:post/edit" component={EditPost} />
+		<PrivateRoute exact path="/posts/:post" component={PostDetails} />
 		<PrivateRoute exact path="/:category" component={Category} />
 		<PrivateRoute exact path="/" component={Home} />
 	</Switch>

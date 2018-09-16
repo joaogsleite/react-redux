@@ -14,7 +14,7 @@ class PostItem extends Component {
 	edit = ()=>{
 		const category = this.props.match.params.category
 		const post = this.props.id
-		this.props.history.push('/'+category+'/'+post+'/edit')
+		this.props.history.push('/posts/'+post+'/edit')
 	}
 	upvote = ()=>{
 

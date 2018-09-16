@@ -26,17 +26,19 @@ export default function reducer(state = initial, {type,payload}) {
 			delete state.posts[payload.id]
 			return {
 				...state,
-				posts   : [...state.posts],
+				posts   : {...state.posts},
 				error   : false,
 				loading : false,
 			}
 
 		case "EDIT_POST_FULFILLED":
+			console.log('EDIT_POST_FULFILLED',payload.id)
+			console.log('EDIT_POST_FULFILLED',payload.title)
 			state.posts[payload.id].title = payload.title
 			state.posts[payload.id].body  = payload.body
 			return {
 				...state,
-				posts   : [...state.posts],
+				posts   : {...state.posts},
 				error   : false,
 				loading : false,
 			}
