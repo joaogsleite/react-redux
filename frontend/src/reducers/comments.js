@@ -1,5 +1,5 @@
 const initial = {
-	comments   : [],
+	comments   : {},
 	fetched    : [],
 	loading    : false,
 	error      : false
@@ -18,15 +18,19 @@ export default function reducer(state = initial, {type,payload}) {
 
 		case "FETCH_COMMENTS_FULFILLED":
 			const posts = [...new Set(payload.map(c => c.parentId))]
+			const comments = payload.reduce((result,item)=>{
+				result[item.id] = item
+				return result
+			})
 			return { 
-				comments : [...state.comments, ...payload],
+				comments : {...state.comments, ...comments},
 				fetched  : [...state.fetched, ...posts],
 				loading  : false,
 				error    : false 
 			}
 		case "POST_COMMENT_FULFILLED":
 			return {
-				comments : [...state.comments, payload],
+				comments : {...state.comments, [payload.id]:payload},
 				fetched  : [...state.fetched, payload.parentId],
 				error    : false,
 				loading  : false,
